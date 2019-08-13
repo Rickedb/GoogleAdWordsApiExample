@@ -39,15 +39,9 @@ namespace AdWordsApiExample.Services
 
             _config.ClientCustomerId = customerId;
             var user = new AdWordsUser(_config);
-            RefreshToken(user);
+            user.OAuthProvider.RefreshAccessTokenIfExpiring();
             var response = await GetResponse(user, reportDefinition);
             return await DownloadContent(response);
-        }
-
-        private void RefreshToken(AdWordsUser user)
-        {
-            var currentToken = _config.OAuth2AccessToken;
-            user.OAuthProvider.RefreshAccessTokenIfExpiring();
         }
 
         private async Task<ReportResponse> GetResponse(AdWordsUser user, IReportDefinition reportDefinition)
