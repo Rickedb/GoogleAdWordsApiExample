@@ -3,8 +3,6 @@ using Google.Api.Ads.AdWords.Util.Reports;
 using Google.Api.Ads.AdWords.v201809;
 using Google.Api.Ads.Common.Util.Reports;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,13 +24,27 @@ namespace AdWordsApiExample.Services
                 reportName = "MyReportName",
                 selector = new Selector()
                 {
+                    dateRange = new DateRange()
+                    {
+                        min = DateTime.Now.AddDays(-2).ToString("yyyy-MM-dd"),
+                        max = DateTime.Now.ToString("yyyy-MM-dd")
+                    },
                     fields = new string[]
                     {
-                        "",
-                        "",
-                        ""
+                        "CampaignName",
+                        "AdGroupName",
+                        "Date",
+                        "Cost",
+                        "CostPerConversion",
+                        "Ctr",
+                        "Impressions",
+                        "Conversions",
+                        "ConversionRate",
+                        "Clicks",
+                        "PercentNewVisitors"
                     }
                 },
+                dateRangeType = ReportDefinitionDateRangeType.CUSTOM_DATE,
                 downloadFormat = DownloadFormat.XML,
                 reportType = ReportDefinitionReportType.AD_PERFORMANCE_REPORT,
             };

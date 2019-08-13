@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Google.Api.Ads.AdWords.Lib;
-using Google.Api.Ads.AdWords.v201809;
+﻿using AdWordsApiExample.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
 
 namespace AdWordsApiExample.Controllers
 {
-    public class ReportController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ReportController : ControllerBase
     {
-        public ReportController()
-        {
+        private readonly GoogleAdWordsService _service;
 
+        public ReportController(GoogleAdWordsService service)
+        {
+            _service = service;
         }
 
-        // GET: /<controller>/
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            
-            return View();
+            var report = await _service.GetReport("XXX-XXX-XXXX"); //your account id
+            return Ok(report);
         }
     }
 }
